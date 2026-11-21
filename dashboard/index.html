@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols, ranked by implied value</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot" aria-hidden="true"></span>TOKEN&nbsp;RADAR</div>
+  <div class="meta" id="meta">Loading snapshot…</div>
+</header>
+<main>
+  <section class="intro">
+    <p>Every protocol below <strong>records no token</strong> in the DefiLlama snapshot of
+    2026-11-14. Each row&rsquo;s implied value is this radar&rsquo;s own claim, computed from
+    the snapshot&rsquo;s figures — it is not a prediction that a token will be issued, or when.
+    Click a row for its detail view and farm plan.</p>
+  </section>
+  <section class="controls" aria-label="Filters">
+    <input id="q" type="search" placeholder="Search name or slug…" aria-label="Search">
+    <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+    <select id="chain" aria-label="Chain"><option value="">All chains</option></select>
+    <select id="scope" aria-label="Scope">
+      <option value="all">All pre-token</option>
+      <option value="watchlist">Watchlist only</option>
+      <option value="below">Below the floor</option>
+    </select>
+  </section>
+  <section id="detail" class="detail" hidden></section>
+  <section class="board-wrap">
+    <table id="board">
+      <thead><tr>
+        <th data-k="rank" class="num">#</th>
+        <th data-k="name">Protocol</th>
+        <th data-k="category">Category</th>
+        <th data-k="chains">Chains</th>
+        <th data-k="tvl_usd" class="num">TVL</th>
+        <th data-k="change_7d" class="num">7d</th>
+        <th data-k="age_days" class="num">Age</th>
+        <th data-k="implied_value_usd" class="num">Implied value</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="count" id="count"></p>
+  </section>
+  <section class="method">
+    <h2>How the value is computed</h2>
+    <p>Implied value = TVL &times; category ratio &times; growth factor &times; age factor.
+    The category ratio is the <strong>median mcap/TVL</strong> of the token-bearing protocols
+    in that category in this snapshot — the calibration the snapshot itself provides, never a
+    hardcoded list of names. A category with fewer than three token-bearing protocols with a
+    market cap falls back to the global median. The growth factor moves with the protocol&rsquo;s
+    7-day TVL change (clamped to &minus;50%…+200%, half weight). The age factor grows with how
+    long the protocol has run with no token recorded, from its first DefiLlama listing to the
+    snapshot date, capped at 1.5&times;. The result is the radar&rsquo;s own claim from the
+    snapshot&rsquo;s figures — not a prediction that a token will be issued, or when, and not
+    a promise of any reward.</p>
+    <p>144 wrapped, staked or bridged products of a token that already trades (or versioned
+    products of one) are left off this board entirely, judged by the same rule the snapshot&rsquo;s
+    watchlist uses to leave such protocols out: a Bridge, Canonical Bridge, Liquid Staking,
+    Liquid Restaking, Restaked BTC or CEX category, a name carrying a whole word wrapped,
+    staked or staking, a name beginning with an exchange&rsquo;s name, or a version suffix.
+    Their token already trades in another form, so they are not fresh launch candidates.
+    The watchlist is the floor, never the ceiling: this board ranks the 198 protocols that
+    record no token and are not such a product.</p>
+    <div id="calibration"></div>
+    <p class="disclaimer">Data: DefiLlama protocols snapshot, fetched 2026-11-14. A protocol
+    is listed as &ldquo;records no token&rdquo; when DefiLlama records no token for it; that is
+    the record, not proof it has none. Farm steps are actions a reader can take on the protocol
+    itself; none of them promises a token, an airdrop, or a reward.</p>
+  </section>
+</main>
+<footer class="foot">TOKEN RADAR &middot; built from the sealed DefiLlama snapshot &middot; 198 pre-token protocols, 40 on the watchlist</footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
